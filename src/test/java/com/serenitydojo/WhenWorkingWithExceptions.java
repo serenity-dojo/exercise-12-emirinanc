@@ -1,6 +1,7 @@
 package com.serenitydojo;
 
 import com.serenitydojo.exceptions.FileLoader;
+import com.serenitydojo.exceptions.MissingWelcomeFileException;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -21,7 +22,7 @@ public class WhenWorkingWithExceptions {
      * Uncomment the code in this test and {@link FileLoader} and make it work.
      * You will need to modify the FileLoader class so that it correctly handles an IOException
      */
-    @Test
+    @Test (expected = IOException.class)
     public void workingWithDeclaredExceptions() throws IOException {
         FileLoader fileLoader = new FileLoader();
         assertThat(fileLoader.readHelloWorld()).isEqualTo("Hello World");
@@ -52,9 +53,9 @@ public class WhenWorkingWithExceptions {
     @Test
     public void catchingCustomExceptionsWhenTheFileDoesNotExist() {
         FileLoader fileLoader = new FileLoader();
-        // assertThatThrownBy(() -> {
+        assertThatThrownBy(() -> {
             assertThat(fileLoader.fileHasText("does-not-exist.txt","Hello World")).isFalse();
-        // }).isInstanceOf(MissingWelcomeFileException.class);
+        }).isInstanceOf(MissingWelcomeFileException.class);
 
     }
 }
